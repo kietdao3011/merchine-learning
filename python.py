@@ -156,7 +156,7 @@ new_data = {
    
 }
 
-if st.button("Dự đoán giá"):
+if st.button("Dự đoán"):
     predicted_price = predict_price(selected_model, new_data)
     if predicted_price is not None:
-        st.write(f"Giá dự đoán: ${predicted_price:,.2f}")
+        st.write(f"dự đoán: ${predicted_price:,.2f}")
