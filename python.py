@@ -17,7 +17,7 @@ import streamlit as st
 @st.cache_resource
 def load_data_and_models():
 # Đọc dữ liệu từ tệp
-    data = pd.read_csv('./dataa.csv')
+    data = pd.read_excel(r'C:\Users\Admin\OneDrive\Documents\Book3.xlsx')
 
     # Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
     data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
