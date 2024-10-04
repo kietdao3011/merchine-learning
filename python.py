@@ -146,13 +146,13 @@ selected_model_name = st.selectbox("Chọn mô hình:", list(model_options.keys(
 selected_model = model_options[selected_model_name]
 
 # Nhập dữ liệu từ người dùng
-cshoatdong = st.number_input('cong suat hoat dong', value=2.58)
-cuongdo = st.number_input('cuong do ', value=10.6)
+cshoatdong = st.number_input('Cong_suat_hoat_dong_toan_cau', value=2.58)
+cuongdo = st.number_input('Cuong_do_toan_cau', value=10.6)
 
 
 new_data = {
-    'cong suat hoat dong':cshoatdong,
-    'cuong do ':cuongdo,
+    'Cong_suat_hoat_dong_toan_cau':cshoatdong,
+    'Cuong_do_toan_cau':cuongdo,
    
 }
 
