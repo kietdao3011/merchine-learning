@@ -23,7 +23,7 @@ def load_data_and_models():
     data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
 
 # Tách dữ liệu thành features và target
-    X = data[['Cong_suat_hoat_dong_toan_cau', 'Cong_suat_phan_khang_toan_cau', 'Dien_ap', 'Cuong_do_toan_cau']]
+    X = data[['Cong_suat_hoat_dong_toan_cau', 'Cuong_do_toan_cau']]
     y = data['Tien_dien']
 
 # Chia dữ liệu thành tập huấn luyện và kiểm tra
@@ -147,15 +147,11 @@ selected_model = model_options[selected_model_name]
 
 # Nhập dữ liệu từ người dùng
 cshoatdong = st.number_input('cong suat hoat dong', value=2.58)
-csphankhang = st.number_input('cong suat phan khang', value=0.136)
-dienap = st.number_input('dien ap', value=241.97)
 cuongdo = st.number_input('cuong do ', value=10.6)
 
 
 new_data = {
     'cong suat hoat dong':cshoatdong,
-    'cong suat phan khang': csphankhang,
-    'dien ap': dienap ,
     'cuong do ':cuongdo,
    
 }
