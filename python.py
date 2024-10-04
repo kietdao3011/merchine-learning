@@ -19,6 +19,8 @@ def load_data_and_models():
 # Đọc dữ liệu từ tệp
     data = pd.read_csv('./dataa.csv')
 
+  # One-hot encoding cho các cột dạng object
+    X = pd.get_dummies(X, drop_first=True)
 # Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
     data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
 
@@ -31,7 +33,7 @@ def load_data_and_models():
 
 
    # Chuẩn hóa dữ liệu
-    scaler = StandardScaler()
+    scaler = StandardScaler()   
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 # Hàm tính Nash-Sutcliffe Efficiency (NSE)
