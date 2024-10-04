@@ -113,9 +113,6 @@ def load_data_and_models():
 # 3. Biểu đồ cho Stacking Regression
     plot_predictions(y_test, y_pred_stacking, 'Stacking Regression')
 
-if not os.path.exists('models'):
-    os.makedirs('models')
-
 # Chỉ tải và khởi tạo mô hình một lần
 scaler, linear_model,ridge_model, neural_model, stacking_model, X_columns = load_data_and_models()
 
@@ -149,10 +146,10 @@ selected_model_name = st.selectbox("Chọn mô hình:", list(model_options.keys(
 selected_model = model_options[selected_model_name]
 
 # Nhập dữ liệu từ người dùng
-cshoatdong = st.number_input('cong suat hoat dong', value=98.4)
-csphankhang = st.number_input('cong suat phan khang', value=168.8)
-dienap = st.number_input('dien ap', value=64.1)
-cuongdo = st.number_input('cuong do ', value=2548)
+cshoatdong = st.number_input('cong suat hoat dong', value=2.58)
+csphankhang = st.number_input('cong suat phan khang', value=0.136)
+dienap = st.number_input('dien ap', value=241.97)
+cuongdo = st.number_input('cuong do ', value=10.6)
 
 
 new_data = {
