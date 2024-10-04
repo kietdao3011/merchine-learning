@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nhập thông số điện</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        background-color: rgba(255, 255, 255, 0.85);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        backdrop-filter: blur(10px);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        font-size: 32px;
+        margin-bottom: 30px;
+      }
+
+      label {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 12px;
+        display: block;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 16px;
+        margin-bottom: 25px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"]:focus,
+      select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        outline: none;
+      }
+
+      button {
+        width: 100%;
+        padding: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      button:active {
+        transform: scale(0.98);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Nhập thông số điện</h1>
+      <form id="predict-form" action="/submit" method="POST">
+        <label for="active_power">Công suất hoạt động toàn cầu (W):</label>
+        <input
+          type="text"
+          id="active_power"
+          name="active_power"
+          placeholder="Nhập công suất hoạt động..."
+        />
+
+        <label for="reactive_power">Công suất phản kháng toàn cầu (Var):</label>
+        <input
+          type="text"
+          id="reactive_power"
+          name="reactive_power"
+          placeholder="Nhập công suất phản kháng..."
+        />
+
+        <label for="voltage">Điện áp (V):</label>
+        <input
+          type="text"
+          id="voltage"
+          name="voltage"
+          placeholder="Nhập điện áp..."
+        />
+
+        <label for="intensity">Cường độ toàn cầu (A):</label>
+        <input
+          type="text"
+          id="intensity"
+          name="intensity"
+          placeholder="Nhập cường độ..."
+        />
+
+        <label for="model">Chọn mô hình dự đoán:</label>
+        <select id="model" name="model">
+          <option value="linear_regression">Linear Regression</option>
+          <option value="ridge_regression">Ridge Regression</option>
+          <option value="neural_network">Neural Network</option>
+          <option value="Stacking">Stacking</option>
+        </select>
+
+        <button type="submit">Dự đoán</button>
+        <div id="result">
+            <p></p>
+        </div>
+      </form>
+    </div>
+    <script>
+        document.getElementById('predict-form').addEventListener('submit', function (e) {
+          e.preventDefault();  // Ngăn chặn việc reload trang khi submit form
+          const active_power = document.getElementById('active_power').value;
+          const reactive_power = document.getElementById('reactive_power').value;
+          const voltage = document.getElementById('voltage').value;
+          const intensity = document.getElementById('intensity').value;
+          const model = document.getElementById('model').value;
+          fetch('/api/predict', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              active_power: active_power,
+              reactive_power: reactive_power,
+              voltage: voltage,
+              intensity: intensity,
+              model: model
+            }),
+          })
+          .then(response => response.json())
+          .then(result => {
+            document.getElementById('result').innerHTML = `Dự đoán tiền điện: ${result.prediction}`;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        });
+      </script>
+  </body>
+</html>
