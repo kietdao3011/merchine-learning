@@ -19,14 +19,16 @@ def load_data_and_models():
 # Đọc dữ liệu từ tệp
     data = pd.read_csv('./dataa.csv')
 
-  # One-hot encoding cho các cột dạng object
-    X = pd.get_dummies(X, drop_first=True)
-# Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
+    # Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
     data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
 
 # Tách dữ liệu thành features và target
     X = data[['Cong_suat_hoat_dong_toan_cau', 'Cuong_do_toan_cau']]
     y = data['Tien_dien']
+
+  # One-hot encoding cho các cột dạng object
+    X = pd.get_dummies(X, drop_first=True)
+
 
 # Chia dữ liệu thành tập huấn luyện và kiểm tra
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
