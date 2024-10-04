@@ -17,7 +17,10 @@ import streamlit as st
 @st.cache_resource
 def load_data_and_models():
 # Đọc dữ liệu từ tệp
-    data = pd.read_csv('./dataa.csv')
+    data = {
+        'Cong_suat_hoat_dong_toan_cau': [2.580, 2.552, 2.550, 2.550, 2.554, 2.550, 2.534, 2.484, 2.468, 2.486, 2.492, 2.500, 2.494, 2.492, 2.480, 2.478, 2.470, 2.466, 2.456],
+        'Cuong_do_toan_cau': [10.6, 10.4, 10.4, 10.4, 10.4, 10.4, 10.4, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2, 10.2]
+    }
 
 # Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
     data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
