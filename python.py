@@ -6,8 +6,7 @@ from sklearn.ensemble import StackingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
-import joblib
-import os
+
 from sklearn.neural_network import MLPRegressor
 
 from sklearn.neighbors import KNeighborsRegressor
@@ -100,10 +99,3 @@ plot_predictions(y_test, y_pred_mlp, 'Neural Network')
 # 3. Biểu đồ cho Stacking Regression
 plot_predictions(y_test, y_pred_stacking, 'Stacking Regression')
 
-if not os.path.exists('models'):
-    os.makedirs('models')
-
-joblib.dump(linear_model, 'models/linear_regression_model.joblib')
-joblib.dump(ridge_model, 'models/ridge_regression_model.joblib')
-joblib.dump(neural_model, 'models/mlp_regressor_model.joblib')
-joblib.dump(stacking_model, 'models/stacking_regressor_model.joblib')

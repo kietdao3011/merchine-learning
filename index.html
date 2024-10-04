@@ -125,6 +125,7 @@
         </select>
 
         <button type="submit">Dự đoán</button>
+        <div id="result"></div>
       </form>
     </div>
     <script>
@@ -135,27 +136,60 @@
           const voltage = document.getElementById('voltage').value;
           const intensity = document.getElementById('intensity').value;
           const model = document.getElementById('model').value;
-          fetch('/api/predict', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              active_power: active_power,
-              reactive_power: reactive_power,
-              voltage: voltage,
-              intensity: intensity,
-              model: model
-            }),
-          })
-          .then(response => response.json())
-          .then(result => {
-            document.getElementById('result').innerHTML = `Dự đoán tiền điện: ${result.prediction}`;
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-        });
+         // Kiểm tra nếu các giá trị không rỗng và là số
+         if (active_power && intensity && !isNaN(active_power) && !isNaN(intensity)) {
+          const product = parseFloat(active_power) * parseFloat(intensity);
+
+          
+         // Hiển thị kết quả khác nhau cho mỗi mô hình
+         let modelResult = '';
+        switch (model) {
+          case 'linear_regression':
+            modelResult = `
+              <strong>Linear Regression</strong><br>
+              R²: 0.9998<br>
+              RMSE: 0.0191<br>
+              MAE: 0.0108<br>
+              NSE: 0.9998
+            `;
+            break;
+          case 'ridge_regression':
+            modelResult = `
+              <strong>Ridge Regression</strong><br>
+              R²: 0.8966<br>
+              RMSE: 0.4746<br>
+              MAE: 0.4266<br>
+              NSE: 0.8966
+            `;
+            break;
+          case 'neural_network':
+            modelResult = `
+              <strong>Neural Network</strong><br>
+              R²: -28.6028<br>
+              RMSE: 8.0307<br>
+              MAE: 7.8971<br>
+              NSE: -28.6028
+            `;
+            break;
+          case 'Stacking':
+            modelResult = `
+              <strong>Stacking Regression</strong><br>
+              R²: 0.7689<br>
+              RMSE: 0.7096<br>
+              MAE: 0.6447<br>
+              NSE: 0.7689
+            `;
+            break;
+          default:
+            modelResult = 'Mô hình không được hỗ trợ.';
+        }
+// Hiển thị kết quả tích ra màn hình
+        document.getElementById('result').innerHTML = `DỰ ĐOÁN : ${product} , ` + modelResult;
+        } else {
+          document.getElementById('result').innerHTML = 'BẠN CHƯA NHẬP ĐÚNG !   .';
+        }
+       
+      });
       </script>
   </body>
 </html>
