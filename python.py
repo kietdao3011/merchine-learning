@@ -6,13 +6,17 @@ from sklearn.ensemble import StackingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPRegressor
 
 from sklearn.neighbors import KNeighborsRegressor
 
 # Đọc dữ liệu từ tệp
 data = pd.read_csv('./data.csv')
+data =data.dropna()
+
+scaler = StandardScaler()
+data_tranform = scaler.fit_transform(data)
 
 # Tạo cột 'Tien_dien' (giả sử đây là tổng công suất hoạt động nhân với cường độ)
 data['Tien_dien'] = data['Cong_suat_hoat_dong_toan_cau'] * data['Cuong_do_toan_cau']
@@ -60,7 +64,7 @@ r2_mlp, rmse_mlp, mae_mlp, nse_mlp = evaluate_model(y_test, y_pred_mlp)
 estimators = [
     ('lr', LinearRegression()),
     ('ridge', Ridge(alpha=1.0)),
-    ('neural',MLPRegressor()),
+    ('neural',MLPRegressor(hidden_layer_sizes=(100,), activation='relu', solver='adam', max_iter=1000)),
 
 ]
 stacking_model = StackingRegressor(estimators=estimators, final_estimator=KNeighborsRegressor())
@@ -99,3 +103,4 @@ plot_predictions(y_test, y_pred_mlp, 'Neural Network')
 # 3. Biểu đồ cho Stacking Regression
 plot_predictions(y_test, y_pred_stacking, 'Stacking Regression')
 
+#https://kietdao3011.github.io/merchine-learning/

@@ -86,33 +86,45 @@
       <form id="predict-form" action="/submit" method="POST">
         <label for="active_power">Công suất hoạt động toàn cầu (W):</label>
         <input
-          type="text"
+          type="number"
           id="active_power"
           name="active_power"
+          step="0.01"
+          min="2.4"
+          max="3"
           placeholder="Nhập công suất hoạt động..."
         />
 
         <label for="reactive_power">Công suất phản kháng toàn cầu (Var):</label>
         <input
-          type="text"
+          type="number"
           id="reactive_power"
           name="reactive_power"
+          step="0.01"
+          min="0"
+          max="1"
           placeholder="Nhập công suất phản kháng..."
         />
 
         <label for="voltage">Điện áp (V):</label>
         <input
-          type="text"
+          type="number"
           id="voltage"
           name="voltage"
+          step="0.01"
+          min="240"
+          max="242"
           placeholder="Nhập điện áp..."
         />
 
         <label for="intensity">Cường độ toàn cầu (A):</label>
         <input
-          type="text"
+          type="number"
           id="intensity"
           name="intensity"
+          step="0.1"
+          min="10"
+          max="11"
           placeholder="Nhập cường độ..."
         />
 
